@@ -17,15 +17,15 @@ let App = React.createClass({
   componentDidMount(){
     setTimeout( () => 
       axios.get('/data.json')
-      .then(
-        data => {
-          STORAGE = data.data;
-            this.setState({
-                isLoading: false,
-                userInfo: STORAGE
-                })
-            }
-        )
+            .then(
+              data => {
+                STORAGE = data.data;
+                  this.setState({
+                      isLoading: false,
+                      userInfo: STORAGE
+                      })
+                  }
+              )
       , 1500 )
   },
   handleSearch(query){
@@ -59,13 +59,12 @@ let App = React.createClass({
   render() {
     return this.state.isLoading ? <Loading />
                                 : (
-                                  <div>
+                                  <div className="app">
                                     <SearchBar onSearch={this.handleSearch} />
                                     <TollBar
                                     onAlphabet={this.handleSortByAlphabet}
                                     onAge={this.handleSortByAge}
                                      />
-                                    }
                                     <UserList
                                       getData={this.getData}
                                      />
