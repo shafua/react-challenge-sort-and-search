@@ -3,6 +3,9 @@ import axios from 'axios';
 import Button from './components/Button';
 import UserList from './components/UserList';
 import Loading from './components/Loading';
+import SearchBar from './components/SearchBar';
+
+let STORAGE;
 
 let App = React.createClass({
   getInitialState(){
@@ -15,12 +18,22 @@ let App = React.createClass({
     setTimeout( () => 
       axios.get('/data.json')
       .then(
-        (data) => this.setState({
-          isLoading: false,
-          userInfo: data
-        })
+        (data) => {
+          STORAGE = data.data;
+            this.setState({
+                isLoading: false,
+                userInfo: STORAGE
+                })
+            }
         )
-      , 5000 )
+      , 500 )
+  },
+  handleSearch(query){
+    this.setState({
+      userInfo: STORAGE.filter(
+        user => user.name.toLowerCase().indexOf(query) + 1
+        )
+    })
   },
   getData(){
     return this.state.userInfo
@@ -31,9 +44,12 @@ let App = React.createClass({
         <Loading />
       )
     : (
+      <div>
+        <SearchBar onSearch={this.handleSearch} />
         <UserList
           getData={this.getData}
          />
+        </div>
       )
   }
 })
