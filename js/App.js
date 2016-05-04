@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Button from './components/Button';
 import UserList from './components/UserList';
 import Loading from './components/Loading';
 import SearchBar from './components/SearchBar';
+import TollBar from './components/TollBar';
 
 let STORAGE;
 
@@ -18,7 +18,7 @@ let App = React.createClass({
     setTimeout( () => 
       axios.get('/data.json')
       .then(
-        (data) => {
+        data => {
           STORAGE = data.data;
             this.setState({
                 isLoading: false,
@@ -26,7 +26,7 @@ let App = React.createClass({
                 })
             }
         )
-      , 500 )
+      , 1500 )
   },
   handleSearch(query){
     this.setState({
@@ -35,22 +35,42 @@ let App = React.createClass({
         )
     })
   },
+  handleSortByAge(){
+    this.setState({
+      userInfo: this.state.userInfo.sort(
+        (a,b) => a.age - b.age
+        )
+    })
+  },
+  handleSortByAlphabet(){
+    this.setState({
+      userInfo: this.state.userInfo.sort(
+        (a,b) => {
+            if (a.name > b.name) return 1;
+            if (a.name < b.name) return -1;
+            return 0;
+          }
+        )
+    })
+  },
   getData(){
     return this.state.userInfo
   },
   render() {
-    return this.state.isLoading 
-    ? (
-        <Loading />
-      )
-    : (
-      <div>
-        <SearchBar onSearch={this.handleSearch} />
-        <UserList
-          getData={this.getData}
-         />
-        </div>
-      )
+    return this.state.isLoading ? <Loading />
+                                : (
+                                  <div>
+                                    <SearchBar onSearch={this.handleSearch} />
+                                    <TollBar
+                                    onAlphabet={this.handleSortByAlphabet}
+                                    onAge={this.handleSortByAge}
+                                     />
+                                    }
+                                    <UserList
+                                      getData={this.getData}
+                                     />
+                                    </div>
+                                  )
   }
 })
 

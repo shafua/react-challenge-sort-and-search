@@ -26,5 +26,9 @@ var SearchBar = React.createClass({
   }
 })
 
+SearchBar.propTypes = {
+  onSearch: React.PropTypes.func.isRequired
+}
+
 export default SearchBar;
 
