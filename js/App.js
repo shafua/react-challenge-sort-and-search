@@ -1,23 +1,34 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import Button from './components/Button';
 import UserList from './components/UserList';
+import Loading from './components/Loading';
 
 let App = React.createClass({
   getInitialState(){
     return {
-      isLoading: true
+      isLoading: true,
+      userInfo: []
     }
   },
   componentDidMount(){
-    setTimeout( () => this.setState({isLoading: false}), 1000 )
+    setTimeout( () => 
+      axios.get('/data.json')
+      .then(
+        (data) => this.setState({
+          isLoading: false,
+          userInfo: data
+        })
+        )
+      , 5000 )
   },
   getData(){
-    return {data: 'data', value: 73}
+    return this.state.userInfo
   },
   render() {
     return this.state.isLoading 
     ? (
-        <h1> Loading </h1>
+        <Loading />
       )
     : (
         <UserList
