@@ -1,6 +1,6 @@
 import React from 'react';
 import UserData from './UserData';
-
+import FlipMove from 'react-flip-move';
 
 
 
@@ -16,9 +16,9 @@ function UserList (props) {
                     />)
             } )
     return (
-        <div>
-            {list}
-        </div>
+        <FlipMove easing="ease-out" duration={1000} >
+                    {list}
+        </FlipMove>
         )
 }
 

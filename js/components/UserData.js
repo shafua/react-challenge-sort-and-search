@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 
 
-function UserData ({name, phone, image, age}) {
+class UserData extends Component {
+
+  render() {
+    let {name, phone, image, age} = this.props;
     return (
         <div className="panel panel-default">
             <div className="panel-body row">
@@ -12,8 +15,10 @@ function UserData ({name, phone, image, age}) {
                 {phone ? (<div className="col-md-4 col-lg-4">{phone}</div>) : ''}
             </div>
         </div>
-        )
+        );
+  }
 }
+
 
 UserData.propTypes = {
   name: React.PropTypes.string.isRequired,
