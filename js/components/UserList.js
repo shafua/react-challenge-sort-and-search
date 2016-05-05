@@ -13,6 +13,7 @@ function UserList (props) {
                         age={elem.age} 
                         phone={elem.phone} 
                         image={elem.image} 
+                        onSelectUser={ e => {e.preventDefault(); props.onSelectUser(elem.id) } } 
                     />)
             } )
     return (
@@ -20,6 +21,10 @@ function UserList (props) {
                     {list}
         </FlipMove>
         )
+}
+
+UserList.propTypes = {
+    onSelectUser: React.PropTypes.func.isRequired,
 }
 
 export default UserList;

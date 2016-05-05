@@ -5,7 +5,7 @@ import Button from './Button';
 
 function TollBar (props) {
     return (
-        <div>
+        <div className="toll_bar">
             <Button text="По алфавиту" update={props.onAlphabet} />
             <Button text="По возрасту" update={props.onAge} />
         </div>
