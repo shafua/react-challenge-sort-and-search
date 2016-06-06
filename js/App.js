@@ -30,7 +30,7 @@ let App = React.createClass({
   },
   componentDidMount(){
     setTimeout( () => 
-      axios.get('/data.json')
+      axios.get('data.json')
             .then(
               data => {
                 STORAGE = data.data;
